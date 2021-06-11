@@ -5,9 +5,9 @@ var rng = RandomNumberGenerator.new()
 var customer = preload("res://scenes/customer.tscn")
 
 const GENDER_VARIANTS = 2
-const HAIR_VARIANTS = 2
-const SKIN_VARIANTS = 2
-const FLOWER_VARIANTS = 2
+const HAIR_VARIANTS = 5
+const SKIN_VARIANTS = 5
+const FLOWER_VARIANTS = 5
 
 var current_customers = []
 
