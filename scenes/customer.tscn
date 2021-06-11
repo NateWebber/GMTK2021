@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://customer.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/red_rect.png" type="Texture" id=2]
+
+[node name="customer" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="gender_id_label" type="Label" parent="."]
+margin_left = -32.7579
+margin_top = -31.813
+margin_right = -0.757935
+margin_bottom = 0.186989
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hair_id_label" type="Label" parent="."]
+margin_left = 0.314972
+margin_top = -31.813
+margin_right = 32.315
+margin_bottom = 0.186996
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skin_id_label" type="Label" parent="."]
+margin_left = -32.443
+margin_right = -0.442963
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="flower_id_label" type="Label" parent="."]
+margin_left = 1.07293
+margin_top = -0.186996
+margin_right = 32.0729
+margin_bottom = 31.813
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GMTK 2021"
+run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
 
 [gdnative]
