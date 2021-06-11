@@ -5,16 +5,11 @@ var rng = RandomNumberGenerator.new()
 var customer = preload("res://scenes/customer.tscn")
 
 const GENDER_VARIANTS = 2
-const HAIR_VARIANTS = 5
-const SKIN_VARIANTS = 5
-const FLOWER_VARIANTS = 5
+const HAIR_VARIANTS = 2
+const SKIN_VARIANTS = 2
+const FLOWER_VARIANTS = 2
 
 var current_customers = []
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,14 +17,14 @@ func _ready():
 	setup_new_game()
 	
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 func _input(event):
 	if event is InputEventMouseButton:
-		generate_new_customer()
+		if event.pressed:
+			generate_new_customer()
 
 func setup_new_game():
 	current_customers = []
@@ -56,14 +51,13 @@ func generate_new_customer():
 	print("Starting to generate a new customer!")
 	var traits = generate_new_customer_traits()
 	var found_match = false
-	for existing_traits in current_customers:
-		if check_traits_duplicated(traits, existing_traits):
+	for existing_customer in current_customers:
+		if check_traits_duplicated(traits, existing_customer.get_trait_ids()):
 			found_match = true
 			print("Newly generated customer matches an existing one!")
 			break
 	if found_match:
-		generate_new_customer()
-		print("Generating again since we found a match!")
+		print("Generation failed because we matched!")
 	else:
 		print("Adding a customer with these traits:")
 		print(traits)
@@ -72,3 +66,4 @@ func generate_new_customer():
 		new_customer.set_appearance()
 		new_customer.position = get_global_mouse_position()
 		add_child(new_customer)
+		current_customers.append(new_customer)
