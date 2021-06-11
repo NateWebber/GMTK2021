@@ -15,6 +15,7 @@ var current_customers = []
 func _ready():
 	rng.randomize()
 	setup_new_game()
+	start_game()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +29,11 @@ func _input(event):
 
 func setup_new_game():
 	current_customers = []
+	
+func start_game():
+	while current_customers.size() < 50:
+		generate_new_customer_pair()
+		yield(get_tree().create_timer(1.5), "timeout")
 
 func generate_new_customer_traits():
 	print("Generating new customer traits!")
@@ -76,13 +82,32 @@ func generate_new_customer_pair():
 		customer1 = generate_new_customer()
 	add_child(customer1)
 	current_customers.append(customer1)
-	customer1.position = get_global_mouse_position()
+	var door_number = rng.randi_range(1, 4)
+	match door_number:
+		1:
+			customer1.position = $door1.position + Vector2(0, 50)
+		2:
+			customer1.position = $door2.position + Vector2(-50, 0)
+		3:
+			customer1.position = $door3.position + Vector2(50, 0)
+		4:
+			customer1.position = $door4.position + Vector2(0, -50)
+
 	var customer2 = null
 	while customer2 == null:
 		customer2 = generate_new_customer()
 	add_child(customer2)
 	current_customers.append(customer2)
-	customer2.position = get_global_mouse_position() + Vector2(100, 0)
+	door_number = rng.randi_range(1, 4)
+	match door_number:
+		1:
+			customer2.position = $door1.position + Vector2(0, 50)
+		2:
+			customer2.position = $door2.position + Vector2(-50, 0)
+		3:
+			customer2.position = $door3.position + Vector2(50, 0)
+		4:
+			customer2.position = $door4.position + Vector2(0, -50)
 	
 	customer1.set_partner_traits(customer2.get_trait_ids())
 	customer2.set_partner_traits(customer1.get_trait_ids())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://customer.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/gender/female.png" type="Texture" id=2]
@@ -18,6 +18,10 @@
 [ext_resource path="res://assets/sprites/flower/flower_3.png" type="Texture" id=16]
 [ext_resource path="res://assets/sprites/flower/flower_2.png" type="Texture" id=17]
 [ext_resource path="res://assets/sprites/flower/flower_1.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/faces/face_happy_flipped.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/faces/face_neutral.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/faces/face_neutral_flipped.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/faces/face_happy.png" type="Texture" id=22]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -51,12 +55,21 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 18.0
 height = 34.0
 
 [node name="customer" type="KinematicBody2D"]
 rotation = -6.28319
+scale = Vector2( 1.2, 1.2 )
 collision_layer = 2
 script = ExtResource( 1 )
 
@@ -66,6 +79,7 @@ margin_top = -31.813
 margin_right = -0.757935
 margin_bottom = 0.186989
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -74,6 +88,7 @@ margin_left = 13.0
 margin_top = -32.0
 margin_right = 45.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -82,6 +97,7 @@ margin_left = -32.443
 margin_right = -0.442963
 margin_bottom = 32.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -90,6 +106,7 @@ margin_left = 14.0
 margin_right = 45.0
 margin_bottom = 32.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -123,5 +140,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="face_sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 3.33786e-06, -17.5 )
+rotation = 1.42109e-14
+scale = Vector2( 0.3825, 0.3825 )
+frames = SubResource( 6 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}

@@ -22,6 +22,10 @@ func start():
 	velocity = Vector2(speed * rng.randf_range(-1, 1), speed * rng.randf_range(-1, 1))
 
 func _physics_process(delta):
+	if velocity.x > 0:
+		$face_sprite.frame = 1
+	else:
+		$face_sprite.frame = 0
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		velocity = velocity.bounce(collision.normal)
