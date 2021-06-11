@@ -9,7 +9,7 @@ var flower_id
 
 var partner_traits
 
-var speed = 150
+var speed = 100
 var velocity = Vector2()
 
 # Called when the node enters the scene tree for the first time.
