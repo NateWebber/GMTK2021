@@ -38,3 +38,7 @@ func set_appearance():
 	$hair_id_label.text = str(hair_id)
 	$skin_id_label.text = str(skin_id)
 	$flower_id_label.text = str(flower_id)
+	$gender_sprite.frame = gender_id - 1
+	$hair_sprite.frame = hair_id - 1
+	$skin_sprite.frame = skin_id - 1
+	$flower_sprite.frame = flower_id - 1
