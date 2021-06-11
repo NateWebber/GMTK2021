@@ -32,6 +32,11 @@ window/size/height=640
 
 singletons=[ "res://git_api.gdnlib" ]
 
+[layer_names]
+
+2d_physics/layer_1="walls"
+2d_physics/layer_2="customers"
+
 [physics]
 
 common/enable_pause_aware_picking=true
