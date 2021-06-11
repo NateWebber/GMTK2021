@@ -24,7 +24,7 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
-			generate_new_customer()
+			generate_new_customer_pair()
 
 func setup_new_game():
 	current_customers = []
@@ -58,12 +58,39 @@ func generate_new_customer():
 			break
 	if found_match:
 		print("Generation failed because we matched!")
+		return null
 	else:
 		print("Adding a customer with these traits:")
 		print(traits)
 		var new_customer = customer.instance()
 		new_customer.set_trait_ids(traits[0], traits[1], traits[2], traits[3])
 		new_customer.set_appearance()
-		new_customer.position = get_global_mouse_position()
-		add_child(new_customer)
-		current_customers.append(new_customer)
+		#new_customer.position = get_global_mouse_position()
+		#add_child(new_customer)
+		#current_customers.append(new_customer)
+		return new_customer
+		
+func generate_new_customer_pair():
+	var customer1 = null
+	while customer1 == null:
+		customer1 = generate_new_customer()
+	add_child(customer1)
+	current_customers.append(customer1)
+	customer1.position = get_global_mouse_position()
+	var customer2 = null
+	while customer2 == null:
+		customer2 = generate_new_customer()
+	add_child(customer2)
+	current_customers.append(customer2)
+	customer2.position = get_global_mouse_position() + Vector2(100, 0)
+	
+	customer1.set_partner_traits(customer2.get_trait_ids())
+	customer2.set_partner_traits(customer1.get_trait_ids())
+	
+	print("Customer 1's Partner is:")
+	print(customer1.get_partner_traits())
+	
+	print("Customer 2's Partner is:")
+	print(customer2.get_partner_traits())
+	
+	

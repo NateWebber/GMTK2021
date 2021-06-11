@@ -5,7 +5,7 @@ var hair_id
 var skin_id
 var flower_id
 
-var partner_id
+var partner_traits
 
 
 # Called when the node enters the scene tree for the first time.
@@ -32,6 +32,12 @@ func get_trait_ids():
 	trait_ids.append(skin_id)
 	trait_ids.append(flower_id)
 	return trait_ids
+	
+func get_partner_traits():
+	return partner_traits
+	
+func set_partner_traits(new_partner_traits):
+	partner_traits = new_partner_traits
 	
 func set_appearance():
 	$gender_id_label.text = str(gender_id)
