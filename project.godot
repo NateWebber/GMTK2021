@@ -24,6 +24,10 @@ config/name="GMTK 2021"
 run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/height=640
+
 [gdnative]
 
 singletons=[ "res://git_api.gdnlib" ]

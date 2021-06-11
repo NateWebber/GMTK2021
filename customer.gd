@@ -1,4 +1,6 @@
-extends Node2D
+extends KinematicBody2D
+
+var rng = RandomNumberGenerator.new()
 
 var gender_id
 var hair_id
@@ -7,15 +9,22 @@ var flower_id
 
 var partner_traits
 
+var speed = 150
+var velocity = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	start()
+	
 
+func start():
+	rng.randomize()
+	velocity = Vector2(speed * rng.randf_range(-1, 1), speed * rng.randf_range(-1, 1))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _physics_process(delta):
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.bounce(collision.normal)
 
 
 
