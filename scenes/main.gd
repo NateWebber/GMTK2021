@@ -14,6 +14,12 @@ var current_customers = []
 var selected_customer_1
 var selected_customer_2
 
+var goal_customer_1
+var goal_customer_2
+
+onready var goal_customer_1_display = $goal_customer_1
+onready var goal_customer_2_display = $goal_customer_2
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
@@ -34,8 +40,17 @@ func setup_new_game():
 	current_customers = []
 	selected_customer_1 = null
 	selected_customer_2 = null
+	goal_customer_1_display.visible = false
+	goal_customer_2_display.visible = false
+	goal_customer_1_display.scale = Vector2(1.8, 1.8)
+	goal_customer_2_display.scale = Vector2(1.8, 1.8)
+	$goal_customer_1/face_sprite.frame = 1 #facing right
+	$goal_customer_2/face_sprite.frame = 0 #facing left
 	
 func start_game():
+	for i in 5:
+		generate_new_customer_pair()
+	get_new_goal_customers()
 	while current_customers.size() < 50:
 		generate_new_customer_pair()
 		yield(get_tree().create_timer(1.5), "timeout")
@@ -156,3 +171,27 @@ func check_for_match():
 		else:
 			print("these two aren't a match!")
 			return false
+
+func find_customer_with_traits(search_traits):
+	for customer in current_customers:
+		if check_traits_duplicated(search_traits, customer.get_trait_ids()):
+			return customer
+	print("no customers matched the search traits and you might be boned")
+	return null
+
+func get_new_goal_customers():
+	goal_customer_1 = current_customers[rng.randi() % current_customers.size()]
+	goal_customer_2 = find_customer_with_traits(goal_customer_1.get_partner_traits())
+	updateUI()
+
+func updateUI():
+	var c_1_traits = goal_customer_1.get_trait_ids()
+	print("goal customer 1's traits are %s" % str(c_1_traits))
+	var c_2_traits = goal_customer_2.get_trait_ids()
+	print("goal customer 2's traits are %s" % str(c_2_traits))
+	goal_customer_1_display.set_trait_ids(c_1_traits[0], c_1_traits[1], c_1_traits[2], c_1_traits[3])
+	goal_customer_2_display.set_trait_ids(c_2_traits[0], c_2_traits[1], c_2_traits[2], c_2_traits[3])
+	goal_customer_1_display.set_appearance()
+	goal_customer_2_display.set_appearance()
+	goal_customer_1_display.visible = true
+	goal_customer_2_display.visible = true

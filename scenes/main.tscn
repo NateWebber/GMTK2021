@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/cursor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/tiles/basic_tiles_1.png" type="Texture" id=3]
 [ext_resource path="res://scenes/door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/customer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 64, 64, 0, 64, 0, 56, 64, 56 )
@@ -316,3 +317,9 @@ scale = Vector2( 3, 1 )
 margin_top = 640.0
 margin_right = 1024.0
 margin_bottom = 1024.0
+
+[node name="goal_customer_1" parent="." instance=ExtResource( 6 )]
+position = Vector2( 256, 816 )
+
+[node name="goal_customer_2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 768, 816 )
