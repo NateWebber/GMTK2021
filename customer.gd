@@ -41,8 +41,10 @@ func _physics_process(delta):
 	if moving:
 		if velocity.x > 0:
 			$face_sprite.frame = 1
+			$hair_sprite.flip_h = true
 		else:
 			$face_sprite.frame = 0
+			$hair_sprite.flip_h = false
 		var collision = move_and_collide(velocity * delta)
 		if collision:
 			velocity = velocity.bounce(collision.normal)

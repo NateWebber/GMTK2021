@@ -9,9 +9,9 @@ var spawning = false
 var customer = preload("res://scenes/customer.tscn")
 
 const GENDER_VARIANTS = 2
-const HAIR_VARIANTS = 5
+const HAIR_VARIANTS = 10
 const SKIN_VARIANTS = 5
-const FLOWER_VARIANTS = 5
+const FLOWER_VARIANTS = 7
 
 var current_customers = []
 

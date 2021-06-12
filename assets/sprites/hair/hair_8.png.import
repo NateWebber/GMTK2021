@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flower_3.png-63d54b6976dd73c20ba86fe0dca145c7.stex"
+path="res://.import/hair_8.png-5c8074c8dceba6003ca06312a95d4c38.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/flower/flower_3.png"
-dest_files=[ "res://.import/flower_3.png-63d54b6976dd73c20ba86fe0dca145c7.stex" ]
+source_file="res://assets/sprites/hair/hair_8.png"
+dest_files=[ "res://.import/hair_8.png-5c8074c8dceba6003ca06312a95d4c38.stex" ]
 
 [params]
 
