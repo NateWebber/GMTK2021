@@ -12,23 +12,27 @@ var partner_traits
 var speed = 100
 var velocity = Vector2()
 
+var moving = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start()
 	
 
 func start():
+	$selection_sprite.visible = false
 	rng.randomize()
 	velocity = Vector2(speed * rng.randf_range(-1, 1), speed * rng.randf_range(-1, 1))
 
 func _physics_process(delta):
-	if velocity.x > 0:
-		$face_sprite.frame = 1
-	else:
-		$face_sprite.frame = 0
-	var collision = move_and_collide(velocity * delta)
-	if collision:
-		velocity = velocity.bounce(collision.normal)
+	if moving:
+		if velocity.x > 0:
+			$face_sprite.frame = 1
+		else:
+			$face_sprite.frame = 0
+		var collision = move_and_collide(velocity * delta)
+		if collision:
+			velocity = velocity.bounce(collision.normal)
 
 
 

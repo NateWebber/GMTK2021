@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://customer.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/gender/female.png" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://assets/sprites/faces/face_neutral.png" type="Texture" id=20]
 [ext_resource path="res://assets/sprites/faces/face_neutral_flipped.png" type="Texture" id=21]
 [ext_resource path="res://assets/sprites/faces/face_happy.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/selection.png" type="Texture" id=23]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -151,3 +152,8 @@ shape = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="selection_sprite" type="Sprite" parent="."]
+position = Vector2( -1.90735e-06, 7.5 )
+scale = Vector2( 1.86713, 1.86713 )
+texture = ExtResource( 23 )

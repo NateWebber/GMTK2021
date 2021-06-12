@@ -71,9 +71,7 @@ func generate_new_customer():
 		var new_customer = customer.instance()
 		new_customer.set_trait_ids(traits[0], traits[1], traits[2], traits[3])
 		new_customer.set_appearance()
-		#new_customer.position = get_global_mouse_position()
-		#add_child(new_customer)
-		#current_customers.append(new_customer)
+		new_customer.moving = true
 		return new_customer
 		
 func generate_new_customer_pair():
