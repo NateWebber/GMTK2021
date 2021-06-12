@@ -4,6 +4,8 @@ var rng = RandomNumberGenerator.new()
 
 export var debug = false
 
+var spawning = false
+
 var customer = preload("res://scenes/customer.tscn")
 
 const GENDER_VARIANTS = 2
@@ -31,8 +33,13 @@ func _ready():
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if current_customers.size() < 24 and !spawning:
+		spawning = true
+		yield(get_tree().create_timer(rng.randf_range(1.0, 3.0)), "timeout")
+		generate_new_customer_pair()
+		spawning = false
+		
 
 #func _input(event):
 #	if event is InputEventMouseButton:
@@ -40,6 +47,7 @@ func _ready():
 #			generate_new_customer_pair()
 
 func setup_new_game():
+	spawning = false
 	current_customers = []
 	selected_customer_1 = null
 	selected_customer_2 = null
@@ -54,9 +62,7 @@ func start_game():
 	for i in 5:
 		generate_new_customer_pair()
 	get_new_goal_customers()
-	while current_customers.size() < 24:
-		generate_new_customer_pair()
-		yield(get_tree().create_timer(3), "timeout")
+
 
 func generate_new_customer_traits():
 	#print("Generating new customer traits!")
@@ -195,9 +201,10 @@ func clear_matched_customers():
 	goal_customer_2.queue_free()
 
 func get_new_goal_customers():
-	goal_customer_1 = current_customers[rng.randi() % current_customers.size()]
-	goal_customer_2 = find_customer_with_traits(goal_customer_1.get_partner_traits())
-	updateUI()
+	if current_customers.size() >= 2:
+		goal_customer_1 = current_customers[rng.randi() % current_customers.size()]
+		goal_customer_2 = find_customer_with_traits(goal_customer_1.get_partner_traits())
+		updateUI()
 
 func updateUI():
 	var c_1_traits = goal_customer_1.get_trait_ids()
