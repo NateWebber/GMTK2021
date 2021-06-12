@@ -12,6 +12,7 @@ signal debug_off
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	debug_switch.pressed = get_parent().debug
 	connect("debug_on", get_parent(), "set_debug")
 	connect("debug_off", get_parent(), "set_debug")
 	pass # Replace with function body.

@@ -27,7 +27,7 @@ func _ready():
 	rng.randomize()
 	setup_new_game()
 	start_game()
-	set_debug(true)
+	set_debug(false)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
