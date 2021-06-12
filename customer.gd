@@ -14,13 +14,22 @@ var velocity = Vector2()
 
 var moving = false
 
+export var selected = false setget set_selected
+
+onready var selection_sprite = $selection_sprite
+
+signal was_selected
+signal was_deselected
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	connect("was_selected", get_parent(), "select_customer")
+	connect("was_deselected", get_parent(), "deselect_customer")
 	start()
 	
 
 func start():
-	$selection_sprite.visible = false
+	selection_sprite.visible = false
 	rng.randomize()
 	velocity = Vector2(speed * rng.randf_range(-1, 1), speed * rng.randf_range(-1, 1))
 
@@ -33,8 +42,6 @@ func _physics_process(delta):
 		var collision = move_and_collide(velocity * delta)
 		if collision:
 			velocity = velocity.bounce(collision.normal)
-
-
 
 func set_trait_ids(new_gender, new_hair, new_skin, new_flower):
 	gender_id = new_gender
@@ -65,3 +72,19 @@ func set_appearance():
 	$hair_sprite.frame = hair_id - 1
 	$skin_sprite.frame = skin_id - 1
 	$flower_sprite.frame = flower_id - 1
+
+func set_selected(value):
+	if selected != value:
+		selected = value
+		selection_sprite.visible = value
+
+
+
+func _on_customer_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == BUTTON_LEFT:
+				if !selected:
+					emit_signal("was_selected", self)
+				else:
+					emit_signal("was_deselected", self)

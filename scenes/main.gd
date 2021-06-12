@@ -11,6 +11,9 @@ const FLOWER_VARIANTS = 5
 
 var current_customers = []
 
+var selected_customer_1
+var selected_customer_2
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
@@ -22,13 +25,15 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.pressed:
-			generate_new_customer_pair()
+#func _input(event):
+#	if event is InputEventMouseButton:
+#		if event.pressed:
+#			generate_new_customer_pair()
 
 func setup_new_game():
 	current_customers = []
+	selected_customer_1 = null
+	selected_customer_2 = null
 	
 func start_game():
 	while current_customers.size() < 50:
@@ -36,14 +41,14 @@ func start_game():
 		yield(get_tree().create_timer(1.5), "timeout")
 
 func generate_new_customer_traits():
-	print("Generating new customer traits!")
+	#print("Generating new customer traits!")
 	var new_traits = []
 	new_traits.append(rng.randi_range(1, GENDER_VARIANTS))
 	new_traits.append(rng.randi_range(1, HAIR_VARIANTS))
 	new_traits.append(rng.randi_range(1, SKIN_VARIANTS))
 	new_traits.append(rng.randi_range(1, FLOWER_VARIANTS))
-	print("Generated this set of traits:")
-	print(new_traits)
+	#print("Generated this set of traits:")
+	#print(new_traits)
 	return new_traits
 
 func check_traits_duplicated(trait_set_1, trait_set_2):
@@ -54,20 +59,20 @@ func check_traits_duplicated(trait_set_1, trait_set_2):
 	return gender_matches and hair_matches and skin_matches and flower_matches
 
 func generate_new_customer():
-	print("Starting to generate a new customer!")
+	#print("Starting to generate a new customer!")
 	var traits = generate_new_customer_traits()
 	var found_match = false
 	for existing_customer in current_customers:
 		if check_traits_duplicated(traits, existing_customer.get_trait_ids()):
 			found_match = true
-			print("Newly generated customer matches an existing one!")
+			#print("Newly generated customer matches an existing one!")
 			break
 	if found_match:
-		print("Generation failed because we matched!")
+		#print("Generation failed because we matched!")
 		return null
 	else:
-		print("Adding a customer with these traits:")
-		print(traits)
+		#print("Adding a customer with these traits:")
+		#print(traits)
 		var new_customer = customer.instance()
 		new_customer.set_trait_ids(traits[0], traits[1], traits[2], traits[3])
 		new_customer.set_appearance()
@@ -110,10 +115,44 @@ func generate_new_customer_pair():
 	customer1.set_partner_traits(customer2.get_trait_ids())
 	customer2.set_partner_traits(customer1.get_trait_ids())
 	
-	print("Customer 1's Partner is:")
-	print(customer1.get_partner_traits())
+	#print("Customer 1's Partner is:")
+	#print(customer1.get_partner_traits())
 	
-	print("Customer 2's Partner is:")
-	print(customer2.get_partner_traits())
+	#print("Customer 2's Partner is:")
+	#print(customer2.get_partner_traits())
 	
+func select_customer(customer):
+	print("selecting customer")
+	if selected_customer_1 == null:
+		selected_customer_1 = customer
+		customer.set_selected(true)
+		check_for_match()
+	elif selected_customer_2 == null:
+		selected_customer_2 = customer
+		customer.set_selected(true)
+		check_for_match()
+	else:
+		print("Already have two customers selected!")
+
+func deselect_customer(customer):
+	print("deselecting customer")
+	if selected_customer_1 == customer:
+		selected_customer_1 = null
+		customer.set_selected(false)
+	elif selected_customer_2 == customer:
+		selected_customer_2 = null
+		customer.set_selected(false)
+	else:
+		print("Customer wasn't selected already!")
 	
+func check_for_match():
+	if selected_customer_1 == null or selected_customer_2 == null:
+		print("two customers need to be selected!")
+		return false
+	else:
+		if selected_customer_1.get_partner_traits() == selected_customer_2.get_trait_ids():
+			print("found a match!")
+			return true
+		else:
+			print("these two aren't a match!")
+			return false
