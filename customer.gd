@@ -30,6 +30,10 @@ func _ready():
 
 func start():
 	selection_sprite.visible = false
+	if get_parent().debug:
+		set_label_visibilty(true)
+	else:
+		set_label_visibilty(false)
 	rng.randomize()
 	velocity = Vector2(speed * rng.randf_range(-1, 1), speed * rng.randf_range(-1, 1))
 
@@ -78,7 +82,11 @@ func set_selected(value):
 		selected = value
 		selection_sprite.visible = value
 
-
+func set_label_visibilty(value):
+	$gender_id_label.visible = value
+	$hair_id_label.visible = value
+	$skin_id_label.visible = value
+	$flower_id_label.visible = value
 
 func _on_customer_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
@@ -88,3 +96,5 @@ func _on_customer_input_event(viewport, event, shape_idx):
 					emit_signal("was_selected", self)
 				else:
 					emit_signal("was_deselected", self)
+
+

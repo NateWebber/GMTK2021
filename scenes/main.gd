@@ -2,6 +2,8 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 
+export var debug = false
+
 var customer = preload("res://scenes/customer.tscn")
 
 const GENDER_VARIANTS = 2
@@ -25,6 +27,7 @@ func _ready():
 	rng.randomize()
 	setup_new_game()
 	start_game()
+	set_debug(true)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,9 +54,9 @@ func start_game():
 	for i in 5:
 		generate_new_customer_pair()
 	get_new_goal_customers()
-	while current_customers.size() < 30:
+	while current_customers.size() < 24:
 		generate_new_customer_pair()
-		yield(get_tree().create_timer(2), "timeout")
+		yield(get_tree().create_timer(3), "timeout")
 
 func generate_new_customer_traits():
 	#print("Generating new customer traits!")
@@ -207,3 +210,10 @@ func updateUI():
 	goal_customer_2_display.set_appearance()
 	goal_customer_1_display.visible = true
 	goal_customer_2_display.visible = true
+	
+func set_debug(value):
+	debug = value
+	for customer in current_customers:
+		customer.set_label_visibilty(value)
+	goal_customer_1_display.set_label_visibilty(value)
+	goal_customer_2_display.set_label_visibilty(value)
