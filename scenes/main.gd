@@ -42,8 +42,8 @@ func setup_new_game():
 	selected_customer_2 = null
 	goal_customer_1_display.visible = false
 	goal_customer_2_display.visible = false
-	goal_customer_1_display.scale = Vector2(1.8, 1.8)
-	goal_customer_2_display.scale = Vector2(1.8, 1.8)
+	goal_customer_1_display.scale = Vector2(2, 2)
+	goal_customer_2_display.scale = Vector2(2, 2)
 	$goal_customer_1/face_sprite.frame = 1 #facing right
 	$goal_customer_2/face_sprite.frame = 0 #facing left
 	
@@ -51,9 +51,9 @@ func start_game():
 	for i in 5:
 		generate_new_customer_pair()
 	get_new_goal_customers()
-	while current_customers.size() < 50:
+	while current_customers.size() < 30:
 		generate_new_customer_pair()
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield(get_tree().create_timer(2), "timeout")
 
 func generate_new_customer_traits():
 	#print("Generating new customer traits!")
@@ -165,11 +165,15 @@ func check_for_match():
 		print("two customers need to be selected!")
 		return false
 	else:
-		if selected_customer_1.get_partner_traits() == selected_customer_2.get_trait_ids():
-			print("found a match!")
-			return true
+		#this if statement is gross I know
+		if (selected_customer_1 == goal_customer_1 or selected_customer_1 == goal_customer_2) and (selected_customer_2 == goal_customer_1 or selected_customer_2 == goal_customer_2):
+			if selected_customer_1.get_partner_traits() == selected_customer_2.get_trait_ids():
+				print("found a match!")
+				clear_matched_customers()
+				get_new_goal_customers()
+				return true
 		else:
-			print("these two aren't a match!")
+			print("these two aren't a match, or aren't the current goal!")
 			return false
 
 func find_customer_with_traits(search_traits):
@@ -178,6 +182,14 @@ func find_customer_with_traits(search_traits):
 			return customer
 	print("no customers matched the search traits and you might be boned")
 	return null
+	
+func clear_matched_customers():
+	deselect_customer(goal_customer_1)
+	deselect_customer(goal_customer_2)
+	current_customers.erase(goal_customer_1)
+	current_customers.erase(goal_customer_2)
+	goal_customer_1.queue_free()
+	goal_customer_2.queue_free()
 
 func get_new_goal_customers():
 	goal_customer_1 = current_customers[rng.randi() % current_customers.size()]
