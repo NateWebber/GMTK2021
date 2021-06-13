@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/gui/back.png" type="Texture" id=1]
 [ext_resource path="res://assets/gui/back_yellow.png" type="Texture" id=2]
 [ext_resource path="res://assets/gui/matrimonium_logo.png" type="Texture" id=3]
-[ext_resource path="res://scenes/how_to_play.gd" type="Script" id=4]
+[ext_resource path="res://scenes/game_over.gd" type="Script" id=4]
 [ext_resource path="res://assets/fonts/impact.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="Theme" id=1]
@@ -435,9 +435,14 @@ WindowDialog/icons/close_highlight = null
 WindowDialog/styles/panel = null
 
 [sub_resource type="DynamicFont" id=2]
+size = 60
 font_data = ExtResource( 5 )
 
-[node name="how_to_play" type="MarginContainer"]
+[sub_resource type="DynamicFont" id=3]
+size = 26
+font_data = ExtResource( 5 )
+
+[node name="game_over" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
@@ -458,36 +463,38 @@ stretch_mode = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 260.0
 margin_right = 1024.0
-margin_bottom = 877.0
+margin_bottom = 631.0
 alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 256.0
 margin_right = 768.0
-margin_bottom = 617.0
+margin_bottom = 371.0
 alignment = 1
 
-[node name="how_to_text" type="Label" parent="VBoxContainer/HBoxContainer/Buttons"]
+[node name="Game Over!" type="Label" parent="VBoxContainer/HBoxContainer/Buttons"]
 margin_right = 512.0
-margin_bottom = 357.0
+margin_bottom = 74.0
 theme = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
-text = "In Matrimonium, you are the manager of a busy \"15 minute marriage\" business in Las Vegas! As your patrons mill about the waiting room, it's up to you to help them find their spouses-to-be and join them together in holy matrimony. But be sure to work fast, you aren't getting paid by the hour!
-
-Customers at your establishment have four distinguishing features. Their outfit, their hairstyle, their skin tone, and the color of the flower they are wearing. While some may look alike, every customer is unique, so keep a sharp eye! In the bottom of the screen you will see two customers who are to be married. They're somewhere in the room, so find and click on them both to make a match.
-
-This game is a submission for the GMTK 2021 Game Jam. The theme is \"joined together\", which I took in a more literal sense, as the main gameplay involves marrying people."
+text = "Game Over!"
 align = 1
-valign = 1
-autowrap = true
+
+[node name="score" type="Label" parent="VBoxContainer/HBoxContainer/Buttons"]
+margin_top = 78.0
+margin_right = 512.0
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 3 )
+text = "Your Score Was:"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="back" type="TextureButton" parent="VBoxContainer/HBoxContainer/Buttons"]
-margin_top = 361.0
+margin_top = 115.0
 margin_right = 512.0
-margin_bottom = 617.0
+margin_bottom = 371.0
 texture_normal = ExtResource( 1 )
 texture_hover = ExtResource( 2 )
 stretch_mode = 3

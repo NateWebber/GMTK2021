@@ -24,6 +24,10 @@ config/name="GMTK 2021"
 run/main_scene="res://scenes/Main Menu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://scenes/global.gd"
+
 [display]
 
 window/size/height=1024

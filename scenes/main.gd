@@ -40,6 +40,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	timer_display.text = str(int($Timer.time_left))
 	if current_customers.size() < 24 and !spawning:
 		spawning = true
 		yield(get_tree().create_timer(rng.randf_range(1.0, 3.0)), "timeout")
@@ -53,7 +54,9 @@ func _process(delta):
 #			generate_new_customer_pair()
 
 func setup_new_game():
+	Global.score = 0
 	score = 0
+	$Timer.start(60)
 	spawning = false
 	current_customers = []
 	selected_customer_1 = null
@@ -72,6 +75,9 @@ func start_game():
 		generate_new_customer_pair()
 	get_new_goal_customers()
 
+func end_game():
+	Global.score = score
+	get_tree().change_scene("res://scenes/game_over.tscn")
 
 func generate_new_customer_traits():
 	#print("Generating new customer traits!")
@@ -248,3 +254,7 @@ func set_debug(value):
 		customer.set_label_visibilty(value)
 	goal_customer_1_display.set_label_visibilty(value)
 	goal_customer_2_display.set_label_visibilty(value)
+
+
+func _on_Timer_timeout():
+	end_game()
