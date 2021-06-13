@@ -21,8 +21,14 @@ var selected_customer_2
 var goal_customer_1
 var goal_customer_2
 
+var score
+var game_timer
+
 onready var goal_customer_1_display = $goal_customer_1
 onready var goal_customer_2_display = $goal_customer_2
+
+onready var score_display = $GUI/VBoxContainer/HBoxContainer/Background/Score
+onready var timer_display = $GUI/VBoxContainer/HBoxContainer/Background/Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,6 +53,7 @@ func _process(delta):
 #			generate_new_customer_pair()
 
 func setup_new_game():
+	score = 0
 	spawning = false
 	current_customers = []
 	selected_customer_1 = null
@@ -56,7 +63,9 @@ func setup_new_game():
 	goal_customer_1_display.scale = Vector2(2, 2)
 	goal_customer_2_display.scale = Vector2(2, 2)
 	$goal_customer_1/face_sprite.frame = 1 #facing right
+	$goal_customer_1/hair_sprite.flip_h = true
 	$goal_customer_2/face_sprite.frame = 0 #facing left
+	$goal_customer_2/hair_sprite.flip_h = false
 	
 func start_game():
 	for i in 5:
@@ -178,6 +187,7 @@ func check_for_match():
 		if (selected_customer_1 == goal_customer_1 or selected_customer_1 == goal_customer_2) and (selected_customer_2 == goal_customer_1 or selected_customer_2 == goal_customer_2):
 			if selected_customer_1.get_partner_traits() == selected_customer_2.get_trait_ids():
 				print("found a match!")
+				score += 1
 				clear_matched_customers()
 				get_new_goal_customers()
 				return true
@@ -206,7 +216,21 @@ func get_new_goal_customers():
 		goal_customer_2 = find_customer_with_traits(goal_customer_1.get_partner_traits())
 		updateUI()
 
+func play_smile_animation():
+	print("playing smile!")
+	$goal_customer_1/face_sprite.frame = 3
+	$goal_customer_2/face_sprite.frame = 2
+	yield(get_tree().create_timer(1), "timeout")
+	$goal_customer_1/face_sprite.frame = 1
+	$goal_customer_2/face_sprite.frame = 0
+
 func updateUI():
+	score_display.text = str(score)
+	if score > 0:
+		play_smile_animation()
+		yield(get_tree().create_timer(1), "timeout")
+	goal_customer_1_display.visible = true
+	goal_customer_2_display.visible = true
 	var c_1_traits = goal_customer_1.get_trait_ids()
 	print("goal customer 1's traits are %s" % str(c_1_traits))
 	var c_2_traits = goal_customer_2.get_trait_ids()
@@ -215,8 +239,8 @@ func updateUI():
 	goal_customer_2_display.set_trait_ids(c_2_traits[0], c_2_traits[1], c_2_traits[2], c_2_traits[3])
 	goal_customer_1_display.set_appearance()
 	goal_customer_2_display.set_appearance()
-	goal_customer_1_display.visible = true
-	goal_customer_2_display.visible = true
+	
+	
 	
 func set_debug(value):
 	debug = value
