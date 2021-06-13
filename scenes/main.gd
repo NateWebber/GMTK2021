@@ -194,6 +194,7 @@ func check_for_match():
 			if selected_customer_1.get_partner_traits() == selected_customer_2.get_trait_ids():
 				print("found a match!")
 				score += 1
+				$point_fx.play()
 				clear_matched_customers()
 				get_new_goal_customers()
 				return true

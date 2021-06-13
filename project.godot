@@ -26,7 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://scenes/global.gd"
+Global="*res://scenes/Global.tscn"
 
 [display]
 
