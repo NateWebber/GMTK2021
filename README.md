@@ -10,3 +10,4 @@ This game is a submission for the GMTK 2021 Game Jam. The theme is "joined toget
 I didn't end up spending as much of my 48 hours on this as I thought I would, but for my first real game jam I am fairly proud of the final product, and I may even continue development in the future.
 
 
+Itch.io page (play/download): https://nuz-dev.itch.io/matrimonium
